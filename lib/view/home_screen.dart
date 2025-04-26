@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:task_1/models/book_model.dart';
 import 'package:task_1/view_models/bloc_books/books_bloc.dart';
 import 'package:task_1/view_models/cubit/calender_cubit.dart';
 
@@ -117,143 +118,130 @@ class HomeScreen extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     final book = books[index];
-                    return Card(
-                      elevation: 0,
-                      color: Colors.white,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ListTile(
-                            title: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    book.title ?? 'No book name',
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                                Badge(
-                                  backgroundColor: Colors.blue.shade100,
-                                  label: Text(
-                                    'Processing',
-                                    style: TextStyle(color: Colors.blue),
-                                  ),
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 3,
-                                    horizontal: 10,
-                                  ),
-                                ),
-                              ],
-                            ),
-
-                            subtitle: Row(
-                              spacing: 8,
-                              children: [
-                                _tileDateBuilder(
-                                  text: 'March 09, 2025',
-                                  color: Colors.blue,
-                                  icon: Icons.calendar_today_outlined,
-                                ),
-                                _tileDateBuilder(
-                                  text: 'March 21, 2025',
-                                  color: Colors.red,
-                                  icon: Icons.flag_outlined,
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              spacing: 5,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        'Wedding',
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          // fontSize: 18,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-
-                                    Text.rich(
-                                      TextSpan(
-                                        text: 'Progress ',
-                                        style: TextStyle(
-                                          color: const Color.fromARGB(
-                                            255,
-                                            91,
-                                            91,
-                                            91,
-                                          ),
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                            text: '62%',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                LinearProgressIndicator(
-                                  minHeight: 6,
-                                  borderRadius: BorderRadius.circular(5),
-                                  value: .6,
-                                  backgroundColor: Colors.grey.shade200,
-                                  valueColor: AlwaysStoppedAnimation(
-                                    Colors.blue,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: SizedBox(
-                              height: 50,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 3,
-                                shrinkWrap: true,
-                                itemBuilder: (_, index) {
-                                  return CircleAvatar(
-                                    radius: 18,
-                                    backgroundColor: Colors.grey,
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
+                    return _cardWidget(book);
                   },
                 );
               },
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Card _cardWidget(Result book) {
+    return Card(
+      elevation: 0,
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ListTile(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    book.title ?? 'No book name',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  ),
+                ),
+                Badge(
+                  backgroundColor: Colors.blue.shade100,
+                  label: Text(
+                    'Processing',
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                ),
+              ],
+            ),
+
+            subtitle: Row(
+              spacing: 8,
+              children: [
+                _tileDateBuilder(
+                  text: 'March 09, 2025',
+                  color: Colors.blue,
+                  icon: Icons.calendar_today_outlined,
+                ),
+                _tileDateBuilder(
+                  text: 'March 21, 2025',
+                  color: Colors.red,
+                  icon: Icons.flag_outlined,
+                ),
+              ],
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 5,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Wedding',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          // fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+
+                    Text.rich(
+                      TextSpan(
+                        text: 'Progress ',
+                        style: TextStyle(
+                          color: const Color.fromARGB(255, 91, 91, 91),
+                        ),
+                        children: [
+                          TextSpan(
+                            text: '62%',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                LinearProgressIndicator(
+                  minHeight: 6,
+                  borderRadius: BorderRadius.circular(5),
+                  value: .6,
+                  backgroundColor: Colors.grey.shade200,
+                  valueColor: AlwaysStoppedAnimation(Colors.blue),
+                ),
+              ],
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SizedBox(
+              height: 50,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 3,
+                shrinkWrap: true,
+                itemBuilder: (_, index) {
+                  return CircleAvatar(radius: 18, backgroundColor: Colors.grey);
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
