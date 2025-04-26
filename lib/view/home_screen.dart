@@ -232,17 +232,25 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
 
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: SizedBox(
-              height: 50,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 3,
-                shrinkWrap: true,
-                itemBuilder: (_, index) {
-                  return CircleAvatar(radius: 18, backgroundColor: Colors.grey);
-                },
+          SizedBox(
+            height: 60,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Stack(
+                children: [
+                  ...List.generate(3, (index) {
+                    return Positioned(
+                      left: index * 26,
+                      child: CircleAvatar(
+                        radius: 18,
+                        backgroundColor: Colors.grey,
+                        backgroundImage: NetworkImage(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsAZbny03eGC-IfSiNQ9VcLVX8ip6SXAaw9CKQyOsREHk88yTeUlPuFh8sut_ooyFm1m8&usqp=CAU',
+                        ),
+                      ),
+                    );
+                  }),
+                ],
               ),
             ),
           ),
