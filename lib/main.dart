@@ -18,7 +18,10 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => CalenderCubit()),
         BlocProvider(create: (context) => BooksBloc()),
       ],
-      child: const MaterialApp(home: HomeScreen()),
+      child: const MaterialApp(
+        home: HomeScreen(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

@@ -112,15 +112,20 @@ class HomeScreen extends StatelessWidget {
                 }
                 final books = (state as BooksLoaded).bookModel.results;
 
-                return ListView.builder(
-                  itemCount: books.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    final book = books[index];
-                    return _cardWidget(book);
-                  },
-                );
+                return books.isEmpty
+                    ? SizedBox(
+                      height: height,
+                      child: Center(child: Text('No books')),
+                    )
+                    : ListView.builder(
+                      itemCount: books.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final book = books[index];
+                        return _cardWidget(book);
+                      },
+                    );
               },
             ),
           ],
